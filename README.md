@@ -2,7 +2,7 @@
 Welcome to the AWS Banker Chatbot project! This chatbot is designed to assist users with common banking inquiries using Amazon Lex for natural language processing and interaction.
 ![image](https://github.com/user-attachments/assets/36947e09-e8fc-424c-82c8-13d5bc78a071)
 
-## 📦 Project Overview
+## 📦 Project Overview Pt.1
 The **Banker Chatbot** uses Amazon Lex to process and respond to user queries. It handles basic intents like balance inquiries, transaction history, and account management while providing fallback handling for unrecognized inputs.
 
 ## 📚 Key Features
@@ -54,3 +54,48 @@ The **Banker Chatbot** uses Amazon Lex to process and respond to user queries. I
 - Expand the intent library for more advanced banking operations.
 - Implement Lambda functions for dynamic data fetching.
 - Improve security with IAM roles and data encryption.
+
+  # AWS Banker Chatbot Technical Documentation (Part 2: Custom Slots)
+
+This document focuses on creating and configuring **custom slots** for the AWS Banker Chatbot using Amazon Lex.
+
+## 📦Project Overview Pt.2
+Custom slots enable the chatbot to capture and process user inputs with specific data types, such as account types, transaction categories, and currencies.
+
+## 🛠️ Creating Custom Slots
+### Step 1: Access the Lex Console
+- Log into the AWS Console and navigate to Amazon Lex.
+- Select your existing **Banker Chatbot**.
+
+### Step 2: Define Custom Slots
+- Go to the **Slots** section under the chatbot's intent.
+- Click **Create Slot Type**.
+- Provide a **Name** and **Description**.
+
+### Step 3: Configure Slot Values
+- Add slot values to define the options the chatbot can recognize.
+- Example for Account Type Slot:
+  - "Savings"
+  - "Checking"
+  - "Business"
+
+### Step 4: Assign Slots to Intents
+- Navigate to the desired intent.
+- Add a new slot by selecting the previously created slot type.
+- Define the **Prompt Message** to request user input.
+
+### Step 5: Test the Slots
+- Test by asking questions like:
+   - "What is my balance in my savings account?"
+   - "Show me transactions from my business account."
+
+## 🎯 Best Practices
+- **Validation:** Use Lambda functions for complex data validation.
+- **Synonyms:** Add synonyms for better user understanding.
+- **Error Handling:** Implement fallback prompts for unrecognized inputs.
+
+---
+
+This completes the technical setup for custom slots in the AWS Banker Chatbot. ✅
+
+
