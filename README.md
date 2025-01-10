@@ -1,5 +1,6 @@
 # AWS Banker Chatbot Documentation
 
+![image](https://github.com/user-attachments/assets/e5969f34-d8f8-4469-966f-af6234c08310)
 
 Welcome to the **AWS Banker Chatbot** project! This chatbot is designed to assist users with common banking inquiries using **Amazon Lex** for natural language processing and interaction.
 
