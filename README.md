@@ -56,3 +56,98 @@ The **Banker Chatbot** uses Amazon Lex to process and respond to user queries. I
 - Expand the intent library for more advanced banking operations.
 - Implement Lambda functions for dynamic data fetching.
 - Improve security with IAM roles and data encryption.
+
+# AWS Banker Chatbot Technical Documentation (Part 2: Custom Slots)
+
+This document focuses on creating and configuring **custom slots** for the AWS Banker Chatbot using Amazon Lex.
+
+## 📦 Overview
+Custom slots enable the chatbot to capture and process user inputs with specific data types, such as account types, transaction categories, and currencies.
+
+## 🛠️ Creating Custom Slots
+### Step 1: Access the Lex Console
+- Log into the AWS Console and navigate to Amazon Lex.
+- Select your existing **Banker Chatbot**.
+
+### Step 2: Define Custom Slots
+- Go to the **Slots** section under the chatbot's intent.
+- Click **Create Slot Type**.
+- Provide a **Name** and **Description**.
+
+### Step 3: Configure Slot Values
+- Add slot values to define the options the chatbot can recognize.
+- Example for Account Type Slot:
+  - "Savings"
+  - "Checking"
+  - "Business"
+
+### Step 4: Assign Slots to Intents
+- Navigate to the desired intent.
+- Add a new slot by selecting the previously created slot type.
+- Define the **Prompt Message** to request user input.
+
+### Step 5: Test the Slots
+- Test by asking questions like:
+   - "What is my balance in my savings account?"
+   - "Show me transactions from my business account."
+
+## 🎯 Best Practices
+- **Validation:** Use Lambda functions for complex data validation.
+- **Synonyms:** Add synonyms for better user understanding.
+- **Error Handling:** Implement fallback prompts for unrecognized inputs.
+
+---
+This completes the technical setup for custom slots in the AWS Banker Chatbot. ✅
+
+# AWS Banker Chatbot Technical Documentation (Part 3: Connecting Lambda)
+
+This document outlines the steps to connect an AWS Lambda function to the **AWS Banker Chatbot** for handling dynamic responses and backend processing.
+
+## 📦 Overview
+AWS Lambda allows you to add serverless computation to your Lex chatbot, enabling dynamic data retrieval and response generation.
+
+## 🛠️ Creating and Configuring the Lambda Function
+### Step 1: Create a Lambda Function
+- Go to the **AWS Lambda Console**.
+- Click **Create Function**.
+- Choose **Author from Scratch**.
+- Name your function, select **Python 3.x** as the runtime, and create it.
+
+### Step 2: Add Lex Trigger
+- Under **Function Overview**, click **Add Trigger**.
+- Select **Lex**, choose your **Banker Chatbot**, and save the trigger.
+
+### Step 3: Write Lambda Code
+```python
+import json
+
+def lambda_handler(event, context):
+    intent_name = event['currentIntent']['name']
+    if intent_name == "CheckBalance":
+        return {
+            "dialogAction": {
+                "type": "Close",
+                "fulfillmentState": "Fulfilled",
+                "message": {"contentType": "PlainText", "content": "Your balance is $1,000."}
+            }
+        }
+```
+
+### Step 4: Assign Lambda to Lex
+- Return to **Lex Console**.
+- Select the **Banker Chatbot** and choose the **Fulfillment** section.
+- Select **AWS Lambda Function** and link the created Lambda function.
+
+## 🎯 Best Practices
+- **IAM Role:** Ensure the Lambda function has the correct IAM role for Lex integration.
+- **Error Handling:** Implement proper error messages in the Lambda code.
+- **Testing:** Test your Lambda function independently before linking it to Lex.
+
+---
+
+This completes the Lambda integration for the AWS Banker Chatbot. ✅
+
+
+
+
+  
