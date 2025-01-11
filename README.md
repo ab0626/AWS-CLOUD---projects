@@ -213,3 +213,65 @@ def lambda_handler(event, context):
 
 This completes the user information saving setup for the AWS Banker Chatbot. ✅
 
+# AWS Banker Chatbot Technical Documentation (Part 5: Creating a Chatbot with Multiple Slots)
+
+This document covers how to create an AWS Banker Chatbot using **Amazon Lex** with multiple slots for collecting user data efficiently.
+
+## 📦 Overview
+Slots are used to gather specific information from the user during a conversation. A chatbot with multiple slots enables more dynamic and comprehensive interactions by collecting multiple data points within a single intent.
+
+## 🛠️ Defining Multiple Slots in Lex
+### Step 1: Access Lex Console
+- Log in to the **AWS Console**.
+- Navigate to **Amazon Lex** and select your **Banker Chatbot**.
+
+### Step 2: Add Slots to an Intent
+- Choose an existing intent or create a new one.
+- Add multiple slots under the **Slots** section.
+- Provide slot names and types (e.g., `AccountType`, `Amount`, `Date`).
+
+### Step 3: Define Prompts for Each Slot
+- For each slot, specify a **Prompt Message** to request user input.
+- Example prompts:
+  - `AccountType`: "What type of account would you like to check?"
+  - `Amount`: "How much would you like to transfer?"
+  - `Date`: "What date should the transfer be scheduled for?"
+
+### Step 4: Set Slot Validation
+- Use **slot types** to restrict valid inputs (e.g., `AMAZON.NUMBER` for numeric amounts).
+
+### Step 5: Assign Fulfillment with Lambda (Optional)
+- Link the slots to a Lambda function to process the collected data.
+
+## 📖 Example Lambda Code for Multi-Slot Handling
+```python
+import json
+
+def lambda_handler(event, context):
+    slots = event['currentIntent']['slots']
+    account_type = slots['AccountType']
+    amount = slots['Amount']
+    date = slots['Date']
+
+    message = f"You have requested to transfer {amount} from your {account_type} account on {date}."
+    
+    return {
+        'dialogAction': {
+            'type': 'Close',
+            'fulfillmentState': 'Fulfilled',
+            'message': {'contentType': 'PlainText', 'content': message}
+        }
+    }
+```
+
+## 🎯 Best Practices
+- **Use Clear Prompts:** Ensure prompts are user-friendly and clear.
+- **Slot Dependencies:** Use slot elicitation for logical ordering of questions.
+- **Testing:** Thoroughly test each slot for proper value collection and validation.
+
+---
+
+This completes the setup for creating a chatbot with multiple slots in the AWS Banker Chatbot project. ✅
+
+
+
