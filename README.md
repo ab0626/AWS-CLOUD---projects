@@ -147,6 +147,86 @@ def lambda_handler(event, context):
 
 This completes the Lambda integration for the AWS Banker Chatbot. ✅
 
+AWS Banker Chatbot Technical Documentation (Part 4: Saving User Info)
+
+This document outlines how to save and manage user information in the AWS Banker Chatbot using Amazon Lex and DynamoDB.
+
+📦 Overview
+
+Saving user information allows the chatbot to personalize responses and keep track of user interactions for improved service.
+
+🛠️ Creating the DynamoDB Table
+
+Step 1: Access DynamoDB
+
+Log in to the AWS Console.
+
+Navigate to DynamoDB.
+
+Click Create Table.
+
+Set Table Name: BankerUserInfo.
+
+Set Primary Key: userId (String).
+
+Step 2: Configure Table Settings
+
+Enable On-Demand Capacity.
+
+Create the table and wait for it to be available.
+
+🧩 Integrating DynamoDB with Lambda
+
+Step 1: Update Lambda Function Permissions
+
+Go to the Lambda Console.
+
+Select the Lambda function connected to Lex.
+
+Attach the AmazonDynamoDBFullAccess policy.
+
+Step 2: Update Lambda Code
+
+import boto3
+import json
+
+dynamodb = boto3.resource('dynamodb')
+table = dynamodb.Table('BankerUserInfo')
+
+def lambda_handler(event, context):
+    user_id = event['userId']
+    user_name = event['currentIntent']['slots']['UserName']
+    
+    table.put_item(
+        Item={
+            'userId': user_id,
+            'userName': user_name
+        }
+    )
+    return {
+        'dialogAction': {
+            'type': 'Close',
+            'fulfillmentState': 'Fulfilled',
+            'message': {'contentType': 'PlainText', 'content': f'Thanks {user_name}, your data has been saved!'}
+        }
+    }
+
+Step 3: Link Lambda to Lex
+
+Go to Lex Console.
+
+Choose your Banker Chatbot.
+
+Assign the updated Lambda function under Fulfillment.
+
+🎯 Best Practices
+
+Security: Limit DynamoDB access with least privilege IAM roles.
+
+Data Management: Implement data retention policies for compliance.
+
+Testing: Validate the data persistence using the DynamoDB console.
+
 
 
 
